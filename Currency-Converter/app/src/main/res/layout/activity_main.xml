@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/FieldsFragment"
-        android:name="com.example.converter.FieldsFragment"
+        android:name="com.example.converter.fragments.FieldsFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/KeyboardFragment"
-        android:name="com.example.converter.KeyboardFragment"
+        android:name="com.example.converter.fragments.KeyboardFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

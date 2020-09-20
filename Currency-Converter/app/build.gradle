@@ -2,16 +2,21 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+apply from: '../git.gradle'
+def patchArray = getPatchArray()
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+
+
 
     defaultConfig {
         applicationId "com.example.converter"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode generateVersionCode(patchArray)
+        versionName "${patchArray[0]}.${patchArray[1]}.${patchArray[2]}"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,6 +31,15 @@ android {
     buildFeatures {
         dataBinding true
     }
+    flavorDimensions 'type'
+    productFlavors {
+        pro {
+            dimension 'type'
+        }
+        basic {
+            dimension 'type'
+        }
+    }
 }
 
 dependencies {
@@ -35,6 +49,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

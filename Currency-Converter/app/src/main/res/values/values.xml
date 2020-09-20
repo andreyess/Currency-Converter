@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="types">
+        <item>Currency</item>
+        <item>Distance</item>
+        <item>Weight</item>
+    </string-array>
+    <string-array name="CurrencyTypes">
+        <item>Euro</item>
+        <item>Dollar</item>
+        <item>Ruble</item>
+    </string-array>
+    <string name="DollarEuro">0.88</string>
+    <string name="DollarRuble">0.88</string>
+    <string name="EuroDollar">0.88</string>
+    <string name="EuroRuble">0.88</string>
+    <string name="RubleDollar">0.88</string>
+    <string name="RubleEuro">0.88</string>
+
+
+
+</resources>

@@ -1,41 +1,30 @@
-def getPatch() {
+def getPatchArray() {
     def diffOutput = new ByteArrayOutputStream()
     exec {
         commandLine 'git', 'describe'
         standardOutput = diffOutput
     }
     def res = diffOutput.toString()
-    if (res.contains('-')) {
-        return res.split('-')[1]
+    if(res.count('.')==2){
+        List posList = new ArrayList()
+        def dot = res.indexOf('.')
+        posList.add(res.substring(0,dot))
+        res = res.substring(dot+1, res.length())
+        dot = res.indexOf('.')
+        posList.add(res.substring(0,dot))
+        posList.add(res.substring(dot+1, res.length()-1))
+        return posList
     } else {
-        return '0'
+        return ["0","0","0"]
     }
 }
 
-def getLastTag() {
-    def tagsOutput = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'describe'
-        standardOutput = tagsOutput
-    }
-    def res = tagsOutput.toString()
-    if (res.contains('-')) {
-        return res.split('-').first()
-    } else {
-        return '0.0'
-    }
-}
-
-static def generateVersionCode(String tag, String patch) {
-    def dot = tag.indexOf('.')
-    def major = tag.substring(0, dot).toInteger()
-    def minor = tag.substring(dot + 1).toInteger()
-    def res = (major*10 + minor.toInteger())*100 + patch.toInteger()
+static def generateVersionCode(ArrayList array) {
+    def res = (array[0].toInteger()*10 + array[1].toInteger())*100 + array[2].toInteger()
     return res
 }
 
 ext {
-    getPatch = this.&getPatch
-    getLastTag = this.&getLastTag
+    getPatchArray = this.&getPatchArray
     generateVersionCode = this.&generateVersionCode
 }
