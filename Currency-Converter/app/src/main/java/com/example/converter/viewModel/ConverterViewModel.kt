@@ -8,9 +8,6 @@ import com.example.converter.viewModel.functionality.Resources
 import java.lang.Exception
 
 class ConverterViewModel: ViewModel() {
-    var type = MutableLiveData<String>()
-    var from = MutableLiveData<String>()
-    var to = MutableLiveData<String>()
     var coefficient = MutableLiveData<Double>()
 
     var current_from = MutableLiveData<String>()
@@ -20,9 +17,6 @@ class ConverterViewModel: ViewModel() {
     val resources = Resources()
 
     init{
-        type.value = "Currency"
-        from.value ="Dollar"
-        to.value = "Euro"
         coefficient.value = 0.84
         current_from.value = "0"
         current_to.value = "0"

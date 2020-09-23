@@ -1,5 +1,8 @@
 package com.example.converter.viewModel.functionality
 
+// template: Type id, Subtype[0] id, Subtype[1] id
+private var saved_state = arrayOf(0,0,0)
+
 class Resources {
     val Types: Array<String> = arrayOf("Currency", "Weight", "Distance")
     val SubTypes: Array<Array<String>> =arrayOf(
@@ -25,15 +28,35 @@ class Resources {
         )
     )
 
+    private var last_result = arrayOf("", "", "")
+
+    fun GetSavedState(): Array<Int>{
+        return saved_state
+    }
+
     fun GetSubTypeOnType(type:String): Array<String>{
         val typeIndex = Types.indexOf(type)
         return SubTypes[typeIndex]
     }
 
+    /*fun GetCoeffitientOnTypes(type: String, from_type: String, to_type: String): Double{
+        if(last_result[0]!=from_type || last_result[1]!=to_type){
+            val typeIndex = Types.indexOf(type)
+            val fromTypeIndex = SubTypes[typeIndex].indexOf(from_type)
+            val toTypeIndex = SubTypes[typeIndex].indexOf(to_type)
+            saved_state = arrayOf(typeIndex, fromTypeIndex, toTypeIndex)
+            last_result = arrayOf(from_type, to_type,
+                CoefficientsOnType[typeIndex][fromTypeIndex][toTypeIndex].toString())
+        }
+        return last_result[2].toDouble()
+    }*/
+
     fun GetCoeffitientOnTypes(type: String, from_type: String, to_type: String): Double{
         val typeIndex = Types.indexOf(type)
         val fromTypeIndex = SubTypes[typeIndex].indexOf(from_type)
         val toTypeIndex = SubTypes[typeIndex].indexOf(to_type)
+        saved_state = arrayOf(typeIndex, fromTypeIndex, toTypeIndex)
+        last_result = arrayOf(from_type, to_type, CoefficientsOnType[typeIndex][fromTypeIndex][toTypeIndex].toString())
         return CoefficientsOnType[typeIndex][fromTypeIndex][toTypeIndex]
     }
 }

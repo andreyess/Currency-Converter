@@ -5,6 +5,11 @@ def getPatchArray() {
         standardOutput = diffOutput
     }
     def res = diffOutput.toString()
+
+    // delete added information about commits in the end of git tag message
+    if (res.contains('-'))
+        res = res.split('-')[0]
+
     if(res.count('.')==2){
         List posList = new ArrayList()
         def dot = res.indexOf('.')
@@ -12,7 +17,7 @@ def getPatchArray() {
         res = res.substring(dot+1, res.length())
         dot = res.indexOf('.')
         posList.add(res.substring(0,dot))
-        posList.add(res.substring(dot+1, res.length()-1))
+        posList.add(res.substring(dot+1))
         return posList
     } else {
         return ["0","0","0"]
