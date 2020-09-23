@@ -1,26 +1,18 @@
 package com.example.converter.fragments
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.converter.R
 import com.example.converter.databinding.FragmentFieldsBinding
 import com.example.converter.viewModel.ConverterViewModel
-
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
-
 
 class FieldsFragment : Fragment() {
     private lateinit var binding: FragmentFieldsBinding
@@ -68,8 +60,8 @@ class FieldsFragment : Fragment() {
 
         var previous_type_selection = binding.types.selectedItem.toString()
 
-        binding.types.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent:AdapterView<*>, view: View?, position: Int, id: Long){
+        binding.types.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long){
                 // Use saved state for spinner views
                 if(!state_changed){
                     binding.typeFrom.setSelection(state[1])
@@ -93,8 +85,8 @@ class FieldsFragment : Fragment() {
                 // Another interface callback
             }
         }
-        val subtypeOnItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent:AdapterView<*>, view: View?, position: Int, id: Long){
+        val subtypeOnItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long){
                 val type = binding.types.selectedItem.toString()
                 val from_value = binding.typeFrom.selectedItem.toString()
                 val to_value = binding.typeTo.selectedItem.toString()
@@ -109,30 +101,9 @@ class FieldsFragment : Fragment() {
         }
         binding.typeFrom.onItemSelectedListener = subtypeOnItemSelectedListener
         binding.typeTo.onItemSelectedListener = subtypeOnItemSelectedListener
-
-        binding.reverceBtn.setOnClickListener(object: View.OnClickListener {
-                override fun onClick(v: View?) {
-                    val typeFrom = binding.typeFrom.selectedItemId.toInt()
-                    binding.typeFrom.setSelection(binding.typeTo.selectedItemId.toInt())
-                    binding.typeTo.setSelection(typeFrom)
-                }
-            })
-
-        binding.copyBtn.setOnClickListener(object: View.OnClickListener {
-            override fun onClick(v: View?) {
-                val myClipboard: ClipboardManager =
-                    activity!!.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-                val newClip: ClipData =
-                    ClipData.newPlainText("Converted data", binding.currToValue.text);
-                myClipboard.setPrimaryClip(newClip)
-                val myToast = Toast.makeText(activity!!,
-                    "Value was succesfully copied!", Toast.LENGTH_SHORT).show();
-
-            }
-        })
     }
 
-    fun CreateAdapter(resource: Array<String>): ArrayAdapter<String>{
+    fun CreateAdapter(resource: Array<String>): ArrayAdapter<String> {
         val adapter = ArrayAdapter(
             activity!!,
             android.R.layout.simple_spinner_item,

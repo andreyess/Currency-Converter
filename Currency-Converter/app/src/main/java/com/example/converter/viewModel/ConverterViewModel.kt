@@ -74,4 +74,10 @@ class ConverterViewModel: ViewModel() {
             //Toast.makeText(this, "Androidly Long Toasts", Toast.LENGTH_LONG).show();
         }
     }
+
+    fun SwapValuesInFields(){
+        val prev_from = current_from.value
+        current_from.value = current_to.value
+        current_to.value = prev_from
+    }
 }
